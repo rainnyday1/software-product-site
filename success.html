@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提交成功 - DevCraft Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .success-container {
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .success-icon {
+            font-size: 80px;
+            color: #4cc9f0;
+            margin-bottom: 30px;
+            animation: bounce 2s infinite;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: white;
+            color: #4361ee;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-info {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .success-container {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="success-container">
+    <div class="success-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+
+    <h1>咨询提交成功！</h1>
+
+    <p>感谢您联系 DevCraft Pro。我们已经收到您的咨询请求，我们的专家团队将在24小时内与您联系，讨论您的项目需求并提供专业建议。</p>
+
+    <p>在此期间，您可以浏览我们的 <a href="index.html#services" style="color: #4cc9f0; text-decoration: underline;">服务案例</a> 了解更多关于我们能为您提供的解决方案。</p>
+
+    <a href="index.html" class="btn">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
+
+    <div class="contact-info">
+        <p><i class="fas fa-envelope"></i> contact@devcraftpro.com</p>
+        <p><i class="fas fa-phone"></i> +86 10 1234 5678</p>
+        <p>如有紧急事宜，请直接拨打我们的电话</p>
+    </div>
+</div>
+</body>
+</html>
