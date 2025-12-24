@@ -117,6 +117,176 @@ if (newsletterForm) {
         }
     });
 }
+<script>
+// 鼠标跟随效果
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingBtn = document.querySelector('.floating-solution-btn');
+    if (!floatingBtn) return;
+
+    // 平滑滚动函数（复用之前的）
+    function smoothScrollToContact(event) {
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        const contact = document.getElementById('contact');
+        if (contact) {
+            // 添加点击反馈
+            const btn = event?.target || document.querySelector('.floating-btn-action');
+            if (btn) {
+                btn.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    btn.style.transform = '';
+            }, 200);
+        }
+
+        // 平滑滚动
+        contact.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+
+        // 高亮效果
+        contact.style.transition = 'all 0.5s ease';
+        contact.style.boxShadow = '0 0 30px rgba(52, 152, 219, 0.8)';
+        setTimeout(() => {
+            contact.style.boxShadow = '';
+    }, 2000);
+
+    return false;
+}
+
+return false;
+}
+
+// 鼠标跟随效果
+let mouseX = 0;
+let mouseY = 0;
+let btnX = 0;
+let btnY = 0;
+
+// 跟踪鼠标位置
+document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // 计算与按钮中心的距离
+    const btnRect = floatingBtn.getBoundingClientRect();
+    btnX = btnRect.left + btnRect.width / 2;
+    btnY = btnRect.top + btnRect.height / 2;
+
+    // 计算相对位置
+    const relativeX = (mouseX - btnX) / 10; // 除以10降低敏感度
+    const relativeY = (mouseY - btnY) / 10;
+
+    // 限制最大偏移量
+    const limitedX = Math.max(-20, Math.min(20, relativeX));
+    const limitedY = Math.max(-20, Math.min(20, relativeY));
+
+    // 应用变换
+    floatingBtn.style.setProperty('--mouse-x', limitedX);
+    floatingBtn.style.setProperty('--mouse-y', limitedY);
+});
+
+// 触摸设备支持
+document.addEventListener('touchmove', function(e) {
+    const touch = e.touches[0];
+    if (touch) {
+        mouseX = touch.clientX;
+        mouseY = touch.clientY;
+
+        const btnRect = floatingBtn.getBoundingClientRect();
+        btnX = btnRect.left + btnRect.width / 2;
+        btnY = btnRect.top + btnRect.height / 2;
+
+        const relativeX = (mouseX - btnX) / 15; // 触摸设备更低的敏感度
+        const relativeY = (mouseY - btnY) / 15;
+
+        const limitedX = Math.max(-15, Math.min(15, relativeX));
+        const limitedY = Math.max(-15, Math.min(15, relativeY));
+
+        floatingBtn.style.setProperty('--mouse-x', limitedX);
+        floatingBtn.style.setProperty('--mouse-y', limitedY);
+    }
+});
+
+// 鼠标离开窗口时重置位置
+document.addEventListener('mouseleave', function() {
+    floatingBtn.style.setProperty('--mouse-x', '0');
+    floatingBtn.style.setProperty('--mouse-y', '0');
+});
+
+// 滚动时微调位置
+let scrollTimeout;
+window.addEventListener('scroll', function() {
+    // 滚动时暂时取消鼠标跟随效果
+    floatingBtn.style.transition = 'transform 0.2s ease';
+    floatingBtn.style.setProperty('--mouse-x', '0');
+    floatingBtn.style.setProperty('--mouse-y', '0');
+
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        floatingBtn.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+}, 200);
+});
+
+// 为按钮添加点击事件
+const actionBtn = document.querySelector('.floating-btn-action');
+if (actionBtn) {
+    actionBtn.addEventListener('click', smoothScrollToContact);
+}
+
+// 导出到全局（以防HTML中使用onclick）
+window.smoothScrollToContact = smoothScrollToContact;
+});
+
+// 滚动显示/隐藏动画
+let lastScrollTop = 0;
+window.addEventListener('scroll', function() {
+    const floatingBtn = document.querySelector('.floating-solution-btn');
+    if (!floatingBtn) return;
+
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    // 向下滚动时隐藏，向上滚动时显示
+    if (scrollTop > lastScrollTop && scrollTop > 300) {
+        // 向下滚动超过300px时隐藏
+        floatingBtn.style.opacity = '0';
+        floatingBtn.style.transform = 'translateY(100px)';
+        floatingBtn.style.pointerEvents = 'none';
+    } else {
+        // 向上滚动或顶部时显示
+        floatingBtn.style.opacity = '1';
+        floatingBtn.style.transform = '';
+        floatingBtn.style.pointerEvents = 'auto';
+    }
+
+    // 在页面底部始终显示
+    if ((window.innerHeight + scrollTop) >= document.body.offsetHeight - 100) {
+        floatingBtn.style.opacity = '1';
+        floatingBtn.style.transform = '';
+        floatingBtn.style.pointerEvents = 'auto';
+    }
+
+    lastScrollTop = scrollTop;
+});
+
+// 初始动画：页面加载后淡入
+window.addEventListener('load', function() {
+    const floatingBtn = document.querySelector('.floating-solution-btn');
+    if (floatingBtn) {
+        floatingBtn.style.opacity = '0';
+        floatingBtn.style.transform = 'translateY(50px) scale(0.9)';
+
+        setTimeout(() => {
+            floatingBtn.style.transition = 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        floatingBtn.style.opacity = '1';
+        floatingBtn.style.transform = '';
+    }, 1000);
+}
+});
+</script>
 
 // 邮箱验证函数
 function validateEmail(email) {
@@ -135,12 +305,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // 添加动画类
-const animateCSS = `
+const animateCSS =
 .animate-in {
     opacity: 1 !important;
 transform: translateY(0) !important;
-}
-`;
+};
 
 const style = document.createElement('style');
 style.textContent = animateCSS;
